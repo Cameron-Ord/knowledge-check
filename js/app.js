@@ -3,8 +3,8 @@ let indentity = document.querySelector(`#section_main`);
 indentity.insertAdjacentHTML(`beforeend`,`
 <article>
 <span>
-<input type="email"> <button id="email_button">Email</button>
-<input type="password"> <button id="password_button">Password</button>
+<input type="value"> <button id="email_button">Email</button>
+<input type="value"> <button id="password_button">Password</button>
 </span>
 </article>
 ` );
@@ -21,26 +21,24 @@ function PW_POST_FAILURE(){
 
 function PW_POST_SUCCESS(response){
 
-    let output = document.querySelector(`#section_main`);
+    Cookies.set(`token`, response[`data`][`token`]);
+    window[`location`] = `/pages/logout.html`;
 
-    output.insertAdjacentHTML(`beforeend`, `<h3>SUCCCCCCESSSSSSS</h3>`);
 
-    let pw_input = document.querySelector(`#password_button`);
-
-    let pw_input_value = pw_input[`password`];
-
-    console.log(pw_input_value);
 };
 
 
 
 
-function API_PW(){
+function API_PWEM(){
 
     let pw_input = document.querySelector(`#password_button`);
 
-    let pw_input_value = pw_input[`password`];
+    let pw_input_value = pw_input[`value`];
 
+    let em_input = document.querySelector(`#email_button`);
+
+    let em_input_value = em_input[`value`];
 
     axios({
 
@@ -51,6 +49,7 @@ function API_PW(){
         data:{
 
 
+            email: em_input_value,
             password: pw_input_value
 
 
@@ -64,4 +63,4 @@ function API_PW(){
 
 let pw_button = document.querySelector(`#password_button`);
 
-pw_button.addEventListener(`click`, API_PW)
+pw_button.addEventListener(`click`, API_PWEM)
